@@ -11,7 +11,7 @@ class LocalDbSource {
     await db.insert('events', event.toMap(), conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
-  Future<List<dynamic>> getAll() async {
+  Future<List<EventModel>> getAll() async {
     final db = await service.database;
     final result = await db.query('events');
     return result.map(EventModel.fromMap).toList();

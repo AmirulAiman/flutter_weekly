@@ -6,7 +6,11 @@ class RemoteDbSource {
 
   RemoteDbSource(this.firestore);
 
-  Future<void> createEvent(String uid, EventModel event) async {
+  CollectionReference getAll(String uid) {
+    return firestore.collection('users').doc(uid).collection('events');
+  }
+
+  Future<void> insert(String uid, EventModel event) async {
     await firestore
         .collection('users')
         .doc(uid)

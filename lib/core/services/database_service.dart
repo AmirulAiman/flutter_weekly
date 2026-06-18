@@ -30,7 +30,8 @@ class DatabaseService {
         title TEXT NOT NULL,
         completed INTEGER NOT NULL,
         date TEXT NOT NULL,
-        createdAt INTEGER NOT NULL
+        createdAt INTEGER NOT NULL,
+        synced INTEGER DEFAULT 0
       )
     ''');
   }

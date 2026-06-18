@@ -14,11 +14,16 @@ class RegisterView extends GetView<AuthController> {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            AuthTextField(controller: controller.emailCtrl, label: 'Email'),
+            AuthTextField(controller: controller.emailCtrl, label: 'Email', hintText: 'Your email'),
 
             const SizedBox(height: 16),
 
-            AuthTextField(controller: controller.passwordCtrl, label: 'Password', isObscure: true),
+            AuthTextField(
+              controller: controller.passwordCtrl,
+              label: 'Password',
+              hintText: 'Enter your email',
+              obscureText: true,
+            ),
 
             const SizedBox(height: 24),
 
