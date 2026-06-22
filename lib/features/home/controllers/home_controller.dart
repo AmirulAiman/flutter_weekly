@@ -1,0 +1,66 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:weekly/features/home/models/day_task_model.dart';
+import 'package:weekly/features/home/models/task_model.dart';
+import 'package:weekly/features/home/repositories/home_repository.dart';
+
+class HomeController extends GetxController {
+  final HomeRepository _repo;
+  HomeController(this._repo);
+
+  final tasks = <DayTaskModel>[].obs;
+  final isLoading = false.obs;
+  final currentDate = DateTime.now().obs;
+
+  final _days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Satruday'];
+
+  final taskCtrl = TextEditingController();
+  final selectedDate = DateTime.now();
+
+  @override
+  void onInit() {
+    super.onInit();
+    fetchTasks();
+  }
+
+  Future<void> fetchTasks() async {
+    try {
+      isLoading(true);
+      final result = await _repo.fetchTasks(currentDate.value);
+      if (result.isNotEmpty) {
+        tasks.value = List.generate(_days.length, (index) {
+          final tasks = result.where((task) => task.date.weekday % 7 == index).toList();
+          return DayTaskModel(
+            day: _days[index],
+            expanded: false.obs,
+            tasks: RxList<TaskModel>(tasks),
+          );
+        });
+      }
+    } catch (e) {
+      print('fetchTasks Failed: $e');
+      tasks.value = [];
+    } finally {
+      isLoading(false);
+    }
+  }
+
+  Future<void> callDatePicker() async {}
+
+  Future<void> insertTask(String task, DateTime date) async {
+    try {
+      final newTask = TaskModel(task: task, date: date, createdAt: DateTime.now());
+      await _repo.createTask(newTask);
+    } catch (e) {
+      print('callDatePicker Failed: $e');
+    }
+  }
+
+  Future<void> deleteTask(String id) async {
+    try {
+      await _repo.deleteTask(id);
+    } catch (e) {
+      print('deleteTask Failed; $e');
+    }
+  }
+}
