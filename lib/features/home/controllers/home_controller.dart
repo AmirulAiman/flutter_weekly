@@ -10,6 +10,7 @@ class HomeController extends GetxController {
 
   final tasks = <DayTaskModel>[].obs;
   final isLoading = false.obs;
+  final expanded = DateTime.now().weekday.obs;
   final currentDate = DateTime.now().obs;
 
   final _days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Satruday'];

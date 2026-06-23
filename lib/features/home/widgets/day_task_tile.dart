@@ -41,11 +41,13 @@ class DayTaskTile extends StatelessWidget {
                       letterSpacing: 1.2,
                     ),
                   ),
-                  if (isExpanded && model.tasks.isNotEmpty) ...[
+                  if (isExpanded) ...[
                     const SizedBox(height: 4),
                     Text(
-                      _formatSubtitle(model.tasks.first.date),
-                      style: const TextStyle(color: Color(0xFF888888), fontSize: 13),
+                      model.tasks.isNotEmpty
+                          ? _formatSubtitle(model.tasks.first.date)
+                          : _formatSubtitle(DateTime.now()),
+                      style: const TextStyle(color: Colors.white, fontSize: 13),
                     ),
                   ],
                 ],
