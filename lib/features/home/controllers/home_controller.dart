@@ -27,16 +27,7 @@ class HomeController extends GetxController {
     try {
       isLoading(true);
       final result = await _repo.fetchTasks(currentDate.value);
-      if (result.isNotEmpty) {
-        tasks.value = List.generate(_days.length, (index) {
-          final tasks = result.where((task) => task.date.weekday % 7 == index).toList();
-          return DayTaskModel(
-            day: _days[index],
-            expanded: false.obs,
-            tasks: RxList<TaskModel>(tasks),
-          );
-        });
-      }
+      tasks.assignAll(_groupByDay(result));
     } catch (e) {
       print('fetchTasks Failed: $e');
       tasks.value = [];
@@ -45,7 +36,22 @@ class HomeController extends GetxController {
     }
   }
 
-  Future<void> callDatePicker() async {}
+  List<DayTaskModel> _groupByDay(List<TaskModel> tasks) {
+    return List.generate(_days.length, (index) {
+      final dayTask = tasks.where((t) => t.date.weekday % 7 == index).toList();
+      return DayTaskModel(
+        day: _days[index],
+        expanded: false.obs,
+        tasks: RxList<TaskModel>(dayTask),
+      );
+    });
+  }
+
+  Future<void> addTask(DayTaskModel dayModel, String taskName) async {
+    final task = TaskModel(task: taskName, date: DateTime.now(), createdAt: DateTime.now());
+    await _repo.createTask(task);
+    dayModel.tasks.add(task);
+  }
 
   Future<void> insertTask(String task, DateTime date) async {
     try {

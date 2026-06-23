@@ -10,8 +10,8 @@ abstract class HomeRepository {
 
 class HomeRepositoryImp implements HomeRepository {
   final DatabaseHelper _local;
-
   HomeRepositoryImp(this._local);
+
   @override
   Future<List<TaskModel>> fetchTasks(DateTime refDate) async {
     final result = AppUtilities.weekdays(date: refDate);
