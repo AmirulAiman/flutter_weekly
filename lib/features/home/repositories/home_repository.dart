@@ -14,13 +14,11 @@ class HomeRepositoryImp implements HomeRepository {
   HomeRepositoryImp(this._local);
   @override
   Future<List<TaskModel>> fetchTasks(DateTime refDate) async {
-    final result = AppUtils.weekdays(date: refDate);
+    final result = AppUtilities.weekdays(date: refDate);
     final rows = await _local.query(
       'tasks',
-      where: 'date >= ? AND date <=?',
-      whereArgs: [
-        ...{result},
-      ],
+      where: 'date >= ? AND date <= ?',
+      whereArgs: [result['start'].toString(), result['end'].toString()],
     );
     if (rows.isNotEmpty) {
       return rows.map(TaskModel.fromMap).toList();

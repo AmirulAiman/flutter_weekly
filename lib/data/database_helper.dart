@@ -2,17 +2,16 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
 class DatabaseHelper {
-  static final DatabaseHelper instance = DatabaseHelper._();
   static Database? _db;
-
-  DatabaseHelper._();
-
-  Future<Database> get database async => _db ??= await _initDb();
-
   final String _databaseName = 'app.db';
   final int _version = 1;
 
-  Future<Database> _initDb() async {
+  Future<Database> get database async {
+    _db ??= await _init();
+    return _db!;
+  }
+
+  Future<Database> _init() async {
     final path = join(await getDatabasesPath(), _databaseName);
     return openDatabase(path, version: _version, onCreate: _onCreate, onUpgrade: _onUpgrade);
   }
@@ -23,6 +22,7 @@ class DatabaseHelper {
         id TEXT PRIMARY KEY,
         task TEXT NOT NULL,
         date TEXT NOT NULL,
+        is_completed INTEGER,
         created_at INTEGER NOT NULL
       )
     ''');
