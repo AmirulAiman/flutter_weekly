@@ -11,11 +11,12 @@ class AppUtilities {
     return {"start": weekStart, "end": weekEnd};
   }
 
-  static String formattedDate(DateTime d) {
+  static String formattedDate(DateTime d, {bool? withTime = false}) {
     final months = AppStrings.monthFullNames;
     final h = d.hour > 12 ? d.hour - 12 : (d.hour == 0 ? 12 : d.hour);
     final m = d.minute.toString().padLeft(2, '0');
     final period = d.hour >= 12 ? 'pm' : 'am';
-    return '${months[d.month - 1]} ${d.day}, ${d.year}  —  $h:$m$period';
+    if (withTime == true) return '${months[d.month - 1]} ${d.day}, ${d.year}  —  $h:$m$period';
+    return '${months[d.month - 1]} ${d.day}, ${d.year}';
   }
 }

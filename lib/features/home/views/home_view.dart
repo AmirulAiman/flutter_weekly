@@ -70,30 +70,49 @@ class HomeView extends GetView<HomeController> {
           itemBuilder: (context, index) => DayTaskTile(model: controller.tasks[index]),
         );
       }),
-      bottomNavigationBar: Container(
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-        child: Row(
+      bottomNavigationBar: Obx(() {
+        return Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             IconButton(
-              onPressed: () {
-                //TODO: Add function to navigate to next week
-              },
-              icon: Icon(Icons.arrow_left, size: 24, color: Theme.of(context).colorScheme.primary),
+              onPressed: controller.prevWeek,
+              icon: Icon(
+                Icons.arrow_left_rounded,
+                size: 50,
+                color: Theme.of(context).colorScheme.primary,
+              ),
             ),
-            Text(
-              'This Weeks',
-              style: TextStyle(color: Theme.of(context).colorScheme.primary, fontSize: 25),
+            GestureDetector(
+              onTap: () {
+                if (controller.isCurrentWeek) {
+                  controller.resetWeek();
+                }
+                return;
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                margin: EdgeInsets.only(bottom: 20),
+                child: Text(
+                  controller.weekLabel,
+                  style: TextStyle(color: Theme.of(context).colorScheme.onPrimary, fontSize: 25),
+                ),
+              ),
             ),
             IconButton(
-              onPressed: () {
-                /// TODO: Add funciton to navigate to prev weeks
-              },
-              icon: Icon(Icons.arrow_right, size: 24, color: Theme.of(context).colorScheme.primary),
+              onPressed: controller.nextWeek,
+              icon: Icon(
+                Icons.arrow_right_rounded,
+                size: 50,
+                color: Theme.of(context).colorScheme.primary,
+              ),
             ),
           ],
-        ),
-      ),
+        );
+      }),
     );
   }
 }

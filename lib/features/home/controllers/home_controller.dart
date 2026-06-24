@@ -61,6 +61,39 @@ class HomeController extends GetxController {
     }
   }
 
+  void prevWeek() {
+    currentDate.value = currentDate.value.subtract(const Duration(days: 7));
+    fetchTasks();
+  }
+
+  void nextWeek() {
+    currentDate.value = currentDate.value.add(const Duration(days: 7));
+    fetchTasks();
+  }
+
+  void resetWeek() {
+    currentDate.value = DateTime.now();
+    fetchTasks();
+  }
+
+  bool get isCurrentWeek {
+    final now = DateTime.now();
+    final startOfCurrentWeek = now.subtract(Duration(days: now.weekday - 1));
+    final startOfSelectedWeek = currentDate.value.subtract(
+      Duration(days: currentDate.value.weekday - 1),
+    );
+    return DateUtils.isSameDay(startOfCurrentWeek, startOfSelectedWeek);
+  }
+
+  String get weekLabel {
+    if (isCurrentWeek) return 'This Week';
+    final start = currentDate.value.subtract(Duration(days: currentDate.value.weekday - 1));
+    final end = start.add(const Duration(days: 6));
+    return '${_fmt(start)} — ${_fmt(end)}';
+  }
+
+  String _fmt(DateTime d) => '${d.day}/${d.month}';
+
   //TODO: Need to debug, save to db not working
   Future<void> updateTask(DayTaskModel dayModel, TaskModel task) async {
     try {
