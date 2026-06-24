@@ -9,9 +9,9 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey,
+      backgroundColor: Theme.of(context).colorScheme.onPrimary,
       appBar: AppBar(
-        backgroundColor: Colors.grey,
+        backgroundColor: Theme.of(context).colorScheme.primary,
         actions: [
           IconButton(
             onPressed: () {},
@@ -34,13 +34,17 @@ class HomeView extends GetView<HomeController> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.arrow_left, size: 24, color: Colors.white),
+              onPressed: () {
+                //TODO: Add function to navigate to next week
+              },
+              icon: Icon(Icons.arrow_left, size: 24, color: Theme.of(context).colorScheme.primary),
             ),
             Text('This Weeks'),
             IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.arrow_right, size: 24, color: Colors.white),
+              onPressed: () {
+                /// TODO: Add funciton to navigate to prev weeks
+              },
+              icon: Icon(Icons.arrow_right, size: 24, color: Theme.of(context).colorScheme.primary),
             ),
           ],
         ),

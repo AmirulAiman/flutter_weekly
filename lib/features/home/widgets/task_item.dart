@@ -35,8 +35,10 @@ class TaskItem extends StatelessWidget {
             Text(
               task.task,
               style: TextStyle(
-                color: checked.value ? const Color(0xFF888888) : Colors.white,
-                fontSize: 15,
+                color: checked.value
+                    ? Theme.of(context).colorScheme.primary
+                    : Theme.of(context).colorScheme.secondary,
+                fontSize: 20,
                 decoration: checked.value ? TextDecoration.lineThrough : null,
                 decorationColor: const Color(0xFFE05A2B),
               ),
