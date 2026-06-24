@@ -1,7 +1,7 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
-class DatabaseHelper {
+class DatabaseService {
   static Database? _db;
   final String _databaseName = 'app.db';
   final int _version = 1;

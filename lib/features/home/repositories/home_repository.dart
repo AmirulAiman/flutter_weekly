@@ -1,5 +1,5 @@
 import 'package:weekly/core/utils/app_utils.dart';
-import 'package:weekly/data/database_helper.dart';
+import 'package:weekly/data/database_service.dart';
 import 'package:weekly/features/home/models/task_model.dart';
 
 abstract class HomeRepository {
@@ -9,7 +9,7 @@ abstract class HomeRepository {
 }
 
 class HomeRepositoryImp implements HomeRepository {
-  final DatabaseHelper _local;
+  final DatabaseService _local;
   HomeRepositoryImp(this._local);
 
   @override
