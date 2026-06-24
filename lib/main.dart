@@ -3,13 +3,14 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:weekly/app/routes/app_routes.dart';
+import 'package:weekly/features/auth/controllers/auth_controller.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
   final user = FirebaseAuth.instance.currentUser;
-  FirebaseAuth.instance.signOut(); //TODO: remove later
+  Get.put(AuthController());
   runApp(
     GetMaterialApp(
       title: 'Weekly',
