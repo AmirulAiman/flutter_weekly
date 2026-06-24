@@ -83,12 +83,7 @@ class HomeView extends GetView<HomeController> {
               ),
             ),
             GestureDetector(
-              onTap: () {
-                if (controller.isCurrentWeek) {
-                  controller.resetWeek();
-                }
-                return;
-              },
+              onTap: () => controller.resetWeek,
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),

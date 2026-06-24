@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:weekly/core/constants/app_strings.dart';
 import 'package:weekly/features/home/models/day_task_model.dart';
 import 'package:weekly/features/home/models/task_model.dart';
 import 'package:weekly/features/home/repositories/home_repository.dart';
@@ -13,7 +14,8 @@ class HomeController extends GetxController {
   final expanded = DateTime.now().weekday.obs;
   final currentDate = DateTime.now().obs;
 
-  final _days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Satruday'];
+  final _days = AppStrings.dayFullNames;
+  final _months = AppStrings.months;
 
   final taskCtrl = TextEditingController();
   final selectedDate = DateTime.now();
@@ -38,12 +40,17 @@ class HomeController extends GetxController {
   }
 
   List<DayTaskModel> _groupByDay(List<TaskModel> tasks) {
+    final startOfWeek = currentDate.value.subtract(Duration(days: currentDate.value.weekday - 1));
     return List.generate(_days.length, (index) {
-      final dayTask = tasks.where((t) => t.date.weekday % 7 == index).toList();
+      final dayOffset = index == 0 ? 6 : index - 1;
+      final dayDate = DateTime(startOfWeek.year, startOfWeek.month, startOfWeek.day + dayOffset);
+      final dayTasks = tasks.where((t) => t.date.weekday % 7 == index).toList();
+
       return DayTaskModel(
         day: _days[index],
+        date: dayDate,
         expanded: false.obs,
-        tasks: RxList<TaskModel>(dayTask),
+        tasks: RxList<TaskModel>(dayTasks),
       );
     });
   }
@@ -51,7 +58,7 @@ class HomeController extends GetxController {
   Future<void> createTask(DayTaskModel dayModel, String taskName) async {
     try {
       isLoading(true);
-      final task = TaskModel(task: taskName, date: DateTime.now(), createdAt: DateTime.now());
+      final task = TaskModel(task: taskName, date: dayModel.date, createdAt: DateTime.now());
       await _repo.createTask(task);
       dayModel.tasks.add(task);
     } catch (e) {
@@ -72,8 +79,11 @@ class HomeController extends GetxController {
   }
 
   void resetWeek() {
-    currentDate.value = DateTime.now();
-    fetchTasks();
+    if (!isCurrentWeek) {
+      currentDate.value = DateTime.now();
+      fetchTasks();
+    }
+    return;
   }
 
   bool get isCurrentWeek {
@@ -92,7 +102,7 @@ class HomeController extends GetxController {
     return '${_fmt(start)} — ${_fmt(end)}';
   }
 
-  String _fmt(DateTime d) => '${d.day}/${d.month}';
+  String _fmt(DateTime d) => '${d.day.toString().padLeft(2, '0')} ${_months[d.month - 1]}';
 
   //TODO: Need to debug, save to db not working
   Future<void> updateTask(DayTaskModel dayModel, TaskModel task) async {
