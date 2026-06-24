@@ -49,7 +49,7 @@ class HomeController extends GetxController {
       return DayTaskModel(
         day: _days[index],
         date: dayDate,
-        expanded: false.obs,
+        expanded: dayDate.weekday == currentDate.value.weekday ? true.obs : false.obs,
         tasks: RxList<TaskModel>(dayTasks),
       );
     });

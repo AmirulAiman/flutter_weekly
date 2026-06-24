@@ -17,7 +17,7 @@ class HomeView extends GetView<HomeController> {
           'Weekly',
           style: TextStyle(color: Theme.of(context).colorScheme.onPrimary, fontSize: 25),
         ),
-        backgroundColor: Theme.of(context).colorScheme.secondary,
+        backgroundColor: Theme.of(context).colorScheme.primary,
         actions: [
           PopupMenuButton<String>(
             icon: Icon(Icons.menu, color: Theme.of(context).colorScheme.onPrimary),
