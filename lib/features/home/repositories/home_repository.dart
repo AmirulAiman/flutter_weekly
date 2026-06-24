@@ -5,6 +5,7 @@ import 'package:weekly/features/home/models/task_model.dart';
 abstract class HomeRepository {
   Future<List<TaskModel>> fetchTasks(DateTime refDate);
   Future<void> createTask(TaskModel task);
+  Future<void> updateTask(TaskModel task);
   Future<void> deleteTask(String id);
 }
 
@@ -29,6 +30,11 @@ class HomeRepositoryImp implements HomeRepository {
   @override
   Future<void> createTask(TaskModel task) async {
     await _local.insert('tasks', task.toMap());
+  }
+
+  @override
+  Future<void> updateTask(TaskModel task) async {
+    await _local.update('tasks', task.toMap(), 'id = ?', [task.id]);
   }
 
   @override

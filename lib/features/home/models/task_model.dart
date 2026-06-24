@@ -35,13 +35,13 @@ class TaskModel {
     };
   }
 
-  TaskModel copyWith(
+  TaskModel copyWith({
     String? id,
     String? task,
     DateTime? date,
     bool? isCompleted,
     DateTime? createdAt,
-  ) {
+  }) {
     return TaskModel(
       id: id ?? this.id,
       task: task ?? this.task,
@@ -50,4 +50,12 @@ class TaskModel {
       createdAt: createdAt ?? this.createdAt,
     );
   }
+
+  TaskModel toggleCompletion({bool? isCompleted}) => TaskModel(
+    id: id,
+    task: task,
+    date: date,
+    createdAt: createdAt,
+    isCompleted: isCompleted ?? this.isCompleted.value,
+  );
 }

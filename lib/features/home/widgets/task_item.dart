@@ -1,32 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:weekly/features/home/controllers/home_controller.dart';
+import 'package:weekly/features/home/models/day_task_model.dart';
 import 'package:weekly/features/home/models/task_model.dart';
 
 class TaskItem extends StatelessWidget {
   final TaskModel task;
-  const TaskItem({super.key, required this.task});
+  final DayTaskModel dayTaskModel;
+  const TaskItem({super.key, required this.task, required this.dayTaskModel});
 
   @override
   Widget build(BuildContext context) {
-    final checked = false.obs;
+    final controller = Get.find<HomeController>();
     return Obx(
       () => Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 6),
         child: Row(
           children: [
             GestureDetector(
-              onTap: () => checked.toggle(),
+              onTap: () {
+                task.copyWith(isCompleted: !task.isCompleted.value);
+                controller.updateTask(dayTaskModel, task);
+              },
               child: Container(
                 width: 18,
                 height: 18,
                 decoration: BoxDecoration(
-                  color: checked.value ? const Color(0xFFE05A2B) : Colors.transparent,
+                  color: task.isCompleted.value ? const Color(0xFFE05A2B) : Colors.transparent,
                   border: Border.all(
-                    color: checked.value ? const Color(0xFFE05A2B) : const Color(0xFF888888),
+                    color: task.isCompleted.value
+                        ? const Color(0xFFE05A2B)
+                        : const Color(0xFF888888),
                     width: 1.5,
                   ),
                 ),
-                child: checked.value
+                child: task.isCompleted.value
                     ? const Icon(Icons.check, size: 12, color: Colors.white)
                     : null,
               ),
@@ -35,11 +43,11 @@ class TaskItem extends StatelessWidget {
             Text(
               task.task,
               style: TextStyle(
-                color: checked.value
+                color: task.isCompleted.value
                     ? Theme.of(context).colorScheme.primary
                     : Theme.of(context).colorScheme.secondary,
                 fontSize: 20,
-                decoration: checked.value ? TextDecoration.lineThrough : null,
+                decoration: task.isCompleted.value ? TextDecoration.lineThrough : null,
                 decorationColor: const Color(0xFFE05A2B),
               ),
             ),

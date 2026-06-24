@@ -48,18 +48,28 @@ class HomeController extends GetxController {
     });
   }
 
-  Future<void> addTask(DayTaskModel dayModel, String taskName) async {
-    final task = TaskModel(task: taskName, date: DateTime.now(), createdAt: DateTime.now());
-    await _repo.createTask(task);
-    dayModel.tasks.add(task);
-  }
-
-  Future<void> insertTask(String task, DateTime date) async {
+  Future<void> createTask(DayTaskModel dayModel, String taskName) async {
     try {
-      final newTask = TaskModel(task: task, date: date, createdAt: DateTime.now());
-      await _repo.createTask(newTask);
+      isLoading(true);
+      final task = TaskModel(task: taskName, date: DateTime.now(), createdAt: DateTime.now());
+      await _repo.createTask(task);
+      dayModel.tasks.add(task);
     } catch (e) {
       print('callDatePicker Failed: $e');
+    } finally {
+      isLoading(false);
+    }
+  }
+
+  //TODO: Need to debug, save to db not working
+  Future<void> updateTask(DayTaskModel dayModel, TaskModel task) async {
+    try {
+      final updated = task.toggleCompletion(isCompleted: !task.isCompleted.value);
+      await _repo.updateTask(updated);
+      final index = dayModel.tasks.indexWhere((t) => t.id == task.id);
+      if (index != -1) dayModel.tasks[index] = updated;
+    } catch (e) {
+      print('updateTask: Failed');
     }
   }
 

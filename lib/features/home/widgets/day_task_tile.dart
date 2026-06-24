@@ -85,8 +85,10 @@ class DayTaskTile extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            ...model.tasks.map((task) => TaskItem(task: task)),
-                            AddTaskField(onSubmitted: (value) => controller.addTask(model, value)),
+                            ...model.tasks.map((task) => TaskItem(dayTaskModel: model, task: task)),
+                            AddTaskField(
+                              onSubmitted: (value) => controller.createTask(model, value),
+                            ),
                             const SizedBox(height: 8),
                           ],
                         ),
