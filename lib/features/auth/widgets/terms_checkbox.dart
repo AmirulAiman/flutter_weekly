@@ -25,10 +25,10 @@ class _TermsCheckboxState extends State<TermsCheckbox> {
             width: 22,
             height: 22,
             decoration: BoxDecoration(
-              color: _checked ? const Color(0xFF1E1E2D) : Colors.white,
+              color: _checked ? Theme.of(context).colorScheme.primary : Colors.white,
               shape: BoxShape.circle,
               border: Border.all(
-                color: _checked ? const Color(0xFF1E1E2D) : const Color(0xFFCCCCCC),
+                color: _checked ? Theme.of(context).colorScheme.onPrimary : const Color(0xFFCCCCCC),
                 width: 1.5,
               ),
             ),

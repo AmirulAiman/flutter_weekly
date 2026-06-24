@@ -39,6 +39,7 @@ class AuthController extends GetxController {
       final email = emailCtrl.value.text;
       final password = passwordCtrl.value.text;
       await _auth.signInWithEmailAndPassword(email: email, password: password);
+      Get.offAndToNamed(AppRoutes.home);
     } on FirebaseAuthException catch (e) {
       Get.snackbar('Login Failed', e.message ?? 'Unknown error');
     } finally {
@@ -49,11 +50,17 @@ class AuthController extends GetxController {
   Future<void> register() async {
     try {
       isLoading(true);
-      final email = emailCtrl.value.text;
-      final password = passwordCtrl.value.text;
+      final email = emailCtrl.value.text.trim();
+      final password = passwordCtrl.value.text.trim();
+      if (email.isEmpty || password.isEmpty) {
+        throw FirebaseAuthException(code: '400', message: 'Email/Password is required');
+      }
       await _auth.createUserWithEmailAndPassword(email: email, password: password);
+      Get.offAndToNamed(AppRoutes.home);
     } on FirebaseAuthException catch (e) {
       Get.snackbar('Register Failed', e.message ?? 'Unknown error');
+    } catch (e) {
+      Get.snackbar('Register Failed', e.toString());
     } finally {
       isLoading(false);
     }

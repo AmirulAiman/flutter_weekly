@@ -82,6 +82,7 @@ class RegisterView extends GetView<AuthController> {
               // Sign up button
               AuthPrimaryButton(
                 label: 'Sign up',
+                isLoading: controller.isLoading.value,
                 onTap: () {
                   controller.register();
                 },

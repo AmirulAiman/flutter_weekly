@@ -79,7 +79,9 @@ class LoginView extends GetView<AuthController> {
               Align(
                 alignment: Alignment.centerRight,
                 child: GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    // TODO: Add forget password function
+                  },
                   child: const Text(
                     'Forgot password?',
                     style: TextStyle(
@@ -95,7 +97,11 @@ class LoginView extends GetView<AuthController> {
               const SizedBox(height: 28),
 
               // Log in button
-              AuthPrimaryButton(label: 'Log in', onTap: () => controller.login()),
+              AuthPrimaryButton(
+                label: 'Log in',
+                onTap: () => controller.login(),
+                isLoading: controller.isLoading.value,
+              ),
               const SizedBox(height: 28),
 
               // Or divider
