@@ -9,6 +9,7 @@ void main() async {
   await Firebase.initializeApp();
 
   final user = FirebaseAuth.instance.currentUser;
+  FirebaseAuth.instance.signOut(); //TODO: remove later
   runApp(
     GetMaterialApp(
       title: 'Weekly',
