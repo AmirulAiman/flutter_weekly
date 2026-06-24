@@ -50,7 +50,7 @@ class DayTaskTile extends StatelessWidget {
                         const SizedBox(width: 8),
                         BadgeWidget(
                           label: '$completed/${model.tasks.length}',
-                          inverted: model.expanded.value,
+                          isExpanded: model.expanded.value,
                         ),
                       ],
                     ],
