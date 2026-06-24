@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:weekly/features/home/controllers/home_controller.dart';
 import 'package:weekly/features/home/models/day_task_model.dart';
 import 'package:weekly/features/home/widgets/add_task_field.dart';
+import 'package:weekly/features/home/widgets/badge_widget.dart';
 import 'package:weekly/features/home/widgets/task_item.dart';
 
 class DayTaskTile extends StatelessWidget {
@@ -17,6 +18,7 @@ class DayTaskTile extends StatelessWidget {
 
     return Obx(() {
       final isExpanded = model.expanded.value;
+      final completed = model.tasks.where((t) => t.isCompleted.value).length;
 
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -32,14 +34,25 @@ class DayTaskTile extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    model.day.toUpperCase(),
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 28,
-                      fontWeight: FontWeight.w800,
-                      letterSpacing: 1.2,
-                    ),
+                  Row(
+                    children: [
+                      Text(
+                        model.day.toUpperCase(),
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.primary,
+                          fontSize: 28,
+                          fontWeight: FontWeight.w800,
+                          letterSpacing: 1.2,
+                        ),
+                      ),
+                      if (model.tasks.isNotEmpty) ...[
+                        const SizedBox(width: 8),
+                        BadgeWidget(
+                          label: '$completed/${model.tasks.length}',
+                          inverted: model.expanded.value,
+                        ),
+                      ],
+                    ],
                   ),
                   if (isExpanded) ...[
                     const SizedBox(height: 4),
@@ -47,18 +60,41 @@ class DayTaskTile extends StatelessWidget {
                       model.tasks.isNotEmpty
                           ? _formatSubtitle(model.tasks.first.date)
                           : _formatSubtitle(DateTime.now()),
-                      style: const TextStyle(color: Colors.white, fontSize: 13),
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.secondary,
+                        fontSize: 13,
+                      ),
                     ),
                   ],
                 ],
               ),
             ),
           ),
-          if (isExpanded) ...[
-            ...model.tasks.map((task) => TaskItem(task: task)),
-            AddTaskField(onSubmitted: (value) => controller.addTask(model, value)),
-            const SizedBox(height: 8),
-          ],
+          AnimatedSize(
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeOut,
+            alignment: Alignment.topCenter,
+            child: isExpanded
+                ? Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      AnimatedOpacity(
+                        opacity: isExpanded ? 1.0 : 0.0,
+                        duration: const Duration(milliseconds: 250),
+                        curve: Curves.easeOut,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            ...model.tasks.map((task) => TaskItem(task: task)),
+                            AddTaskField(onSubmitted: (value) => controller.addTask(model, value)),
+                            const SizedBox(height: 8),
+                          ],
+                        ),
+                      ),
+                    ],
+                  )
+                : const SizedBox.shrink(),
+          ),
         ],
       );
     });
