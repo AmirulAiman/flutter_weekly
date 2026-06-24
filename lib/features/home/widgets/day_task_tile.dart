@@ -1,6 +1,7 @@
 // day tile — unchanged structure, controller wired via addTask
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:weekly/core/utils/app_utils.dart';
 import 'package:weekly/features/home/controllers/home_controller.dart';
 import 'package:weekly/features/home/models/day_task_model.dart';
 import 'package:weekly/features/home/widgets/add_task_field.dart';
@@ -57,9 +58,7 @@ class DayTaskTile extends StatelessWidget {
                   if (isExpanded) ...[
                     const SizedBox(height: 4),
                     Text(
-                      model.tasks.isNotEmpty
-                          ? _formatSubtitle(model.tasks.first.date)
-                          : _formatSubtitle(DateTime.now()),
+                      AppUtilities.formattedDate(model.date),
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.secondary,
                         fontSize: 13,
@@ -100,27 +99,5 @@ class DayTaskTile extends StatelessWidget {
         ],
       );
     });
-  }
-
-  String _formatSubtitle(DateTime date) {
-    const months = [
-      'January',
-      'February',
-      'March',
-      'April',
-      'May',
-      'June',
-      'July',
-      'August',
-      'September',
-      'October',
-      'November',
-      'December',
-    ];
-    final hour = date.hour;
-    final minute = date.minute.toString().padLeft(2, '0');
-    final period = hour >= 12 ? 'pm' : 'am';
-    final hour12 = hour % 12 == 0 ? 12 : hour % 12;
-    return '${months[date.month - 1]}, ${date.day} ${date.year} — $hour12:$minute$period';
   }
 }
