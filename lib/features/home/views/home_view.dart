@@ -11,7 +11,7 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     final auth = Get.find<AuthController>();
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.onSecondary,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         title: Text(
           'Weekly',

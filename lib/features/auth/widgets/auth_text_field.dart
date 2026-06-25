@@ -26,9 +26,9 @@ class _AuthTextFieldState extends State<AuthTextField> {
     return Container(
       height: 52,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Colors.white54,
         borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: const Color(0xFFE8E8E8), width: 1.2),
+        border: Border.all(color: Theme.of(context).colorScheme.onSecondary, width: 1.2),
       ),
       child: TextField(
         controller: widget.controller,
@@ -53,7 +53,7 @@ class _AuthTextFieldState extends State<AuthTextField> {
                   icon: Icon(
                     _obscure ? Icons.visibility_off_outlined : Icons.visibility_outlined,
                     size: 20,
-                    color: const Color(0xFFB0B0B0),
+                    color: Theme.of(context).colorScheme.primary,
                   ),
                   onPressed: () => setState(() => _obscure = !_obscure),
                 )

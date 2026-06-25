@@ -8,19 +8,19 @@ class CustomDivider extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        const Expanded(child: Divider(color: Color(0xFFE8E8E8), thickness: 1)),
+        Expanded(child: Divider(color: Theme.of(context).colorScheme.onSurface, thickness: 1)),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 14),
+          padding: EdgeInsets.symmetric(horizontal: 14),
           child: Text(
             text,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 12.5,
-              color: Color(0xFFAAAAAA),
+              color: Theme.of(context).colorScheme.primary,
               fontWeight: FontWeight.w400,
             ),
           ),
         ),
-        const Expanded(child: Divider(color: Color(0xFFE8E8E8), thickness: 1)),
+        Expanded(child: Divider(color: Theme.of(context).colorScheme.primary, thickness: 1)),
       ],
     );
   }

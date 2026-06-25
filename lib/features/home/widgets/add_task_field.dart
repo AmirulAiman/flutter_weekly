@@ -23,10 +23,10 @@ class _AddTaskFieldState extends State<AddTaskField> {
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
       child: TextField(
         controller: _textController,
-        style: TextStyle(color: Theme.of(context).colorScheme.primary, fontSize: 14),
+        style: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: 14),
         decoration: InputDecoration(
           hintText: 'Add a new task...',
-          hintStyle: TextStyle(color: Theme.of(context).colorScheme.secondary, fontSize: 14),
+          hintStyle: TextStyle(color: Theme.of(context).colorScheme.onSurface, fontSize: 20),
           border: InputBorder.none,
           isDense: true,
           contentPadding: EdgeInsets.zero,

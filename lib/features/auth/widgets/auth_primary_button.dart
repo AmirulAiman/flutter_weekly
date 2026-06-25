@@ -30,22 +30,25 @@ class AuthPrimaryButton extends StatelessWidget {
         child: AnimatedSwitcher(
           duration: const Duration(milliseconds: 200),
           child: isLoading
-              ? const SizedBox(
+              ? SizedBox(
                   key: ValueKey('loader'),
                   width: 20,
                   height: 20,
                   child: CircularProgressIndicator(
                     strokeWidth: 2.5,
-                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                      Theme.of(context).colorScheme.secondary,
+                    ),
                   ),
                 )
               : Text(
                   key: const ValueKey('label'),
                   label,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 15.5,
                     fontWeight: FontWeight.w600,
                     letterSpacing: 0.2,
+                    color: Theme.of(context).colorScheme.onPrimary,
                   ),
                 ),
         ),

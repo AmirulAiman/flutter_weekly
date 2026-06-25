@@ -25,10 +25,14 @@ class _TermsCheckboxState extends State<TermsCheckbox> {
             width: 22,
             height: 22,
             decoration: BoxDecoration(
-              color: _checked ? Theme.of(context).colorScheme.primary : Colors.white,
+              color: _checked
+                  ? Theme.of(context).colorScheme.primary
+                  : Theme.of(context).colorScheme.onPrimary,
               shape: BoxShape.circle,
               border: Border.all(
-                color: _checked ? Theme.of(context).colorScheme.onPrimary : const Color(0xFFCCCCCC),
+                color: _checked
+                    ? Theme.of(context).colorScheme.onPrimary
+                    : Theme.of(context).colorScheme.primary,
                 width: 1.5,
               ),
             ),
@@ -36,14 +40,17 @@ class _TermsCheckboxState extends State<TermsCheckbox> {
           ),
         ),
         const SizedBox(width: 10),
-        const Text.rich(
+        Text.rich(
           TextSpan(
             text: 'I accept the ',
             style: TextStyle(fontSize: 13, color: Color(0xFF555555)),
             children: [
               TextSpan(
                 text: 'terms and privacy policy',
-                style: TextStyle(fontWeight: FontWeight.w600, color: Color(0xFF1A1A1A)),
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
               ),
             ],
           ),

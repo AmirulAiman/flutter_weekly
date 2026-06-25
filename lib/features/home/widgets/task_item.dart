@@ -26,13 +26,16 @@ class TaskItem extends StatelessWidget {
                 width: 18,
                 height: 18,
                 decoration: BoxDecoration(
-                  color: task.isCompleted.value ? const Color(0xFFE05A2B) : Colors.transparent,
+                  color: task.isCompleted.value
+                      ? Theme.of(context).colorScheme.primary
+                      : Colors.transparent,
                   border: Border.all(
                     color: task.isCompleted.value
                         ? const Color(0xFFE05A2B)
                         : const Color(0xFF888888),
                     width: 1.5,
                   ),
+                  borderRadius: BorderRadius.circular(5),
                 ),
                 child: task.isCompleted.value
                     ? const Icon(Icons.check, size: 12, color: Colors.white)
@@ -44,8 +47,8 @@ class TaskItem extends StatelessWidget {
               task.task,
               style: TextStyle(
                 color: task.isCompleted.value
-                    ? Theme.of(context).colorScheme.primary
-                    : Theme.of(context).colorScheme.secondary,
+                    ? Theme.of(context).colorScheme.onSurface
+                    : Theme.of(context).colorScheme.primary,
                 fontSize: 20,
                 decoration: task.isCompleted.value ? TextDecoration.lineThrough : null,
                 decorationColor: const Color(0xFFE05A2B),

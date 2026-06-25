@@ -15,7 +15,7 @@ class RegisterView extends GetView<AuthController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 28),
@@ -29,12 +29,12 @@ class RegisterView extends GetView<AuthController> {
               const SizedBox(height: 36),
 
               // Title
-              const Text(
+              Text(
                 'Sign up',
                 style: TextStyle(
                   fontSize: 30,
                   fontWeight: FontWeight.w700,
-                  color: Color(0xFF1A1A1A),
+                  color: Theme.of(context).colorScheme.primary,
                   letterSpacing: -0.5,
                   height: 1.1,
                 ),
@@ -42,12 +42,12 @@ class RegisterView extends GetView<AuthController> {
               const SizedBox(height: 28),
 
               // Email field
-              const Text(
+              Text(
                 'Email',
                 style: TextStyle(
                   fontSize: 13.5,
                   fontWeight: FontWeight.w600,
-                  color: Color(0xFF1A1A1A),
+                  color: Theme.of(context).colorScheme.primary,
                 ),
               ),
               const SizedBox(height: 8),
@@ -59,12 +59,12 @@ class RegisterView extends GetView<AuthController> {
               const SizedBox(height: 18),
 
               // Password field
-              const Text(
+              Text(
                 'Password',
                 style: TextStyle(
                   fontSize: 13.5,
                   fontWeight: FontWeight.w600,
-                  color: Color(0xFF1A1A1A),
+                  color: Theme.of(context).colorScheme.primary,
                 ),
               ),
               const SizedBox(height: 8),
@@ -105,17 +105,17 @@ class RegisterView extends GetView<AuthController> {
                 child: GestureDetector(
                   onTap: () => Get.toNamed(AppRoutes.login),
                   child: Text.rich(
-                    const TextSpan(
+                    TextSpan(
                       text: 'Already have an account?  ',
-                      style: TextStyle(fontSize: 13, color: Color(0xFF888888)),
+                      style: TextStyle(fontSize: 13, color: Theme.of(context).colorScheme.primary),
                       children: [
                         TextSpan(
                           text: 'Log in',
                           style: TextStyle(
-                            color: Color(0xFF1A1A1A),
+                            color: Theme.of(context).colorScheme.onSurface,
                             fontWeight: FontWeight.w700,
                             decoration: TextDecoration.underline,
-                            decorationColor: Color(0xFF1A1A1A),
+                            decorationColor: Theme.of(context).colorScheme.primary,
                           ),
                         ),
                       ],

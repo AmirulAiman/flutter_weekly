@@ -11,7 +11,6 @@ class HomeController extends GetxController {
 
   final tasks = <DayTaskModel>[].obs;
   final isLoading = false.obs;
-  final expanded = DateTime.now().weekday.obs;
   final currentDate = DateTime.now().obs;
 
   final _days = AppStrings.dayFullNames;
@@ -49,7 +48,7 @@ class HomeController extends GetxController {
       return DayTaskModel(
         day: _days[index],
         date: dayDate,
-        expanded: dayDate.weekday == currentDate.value.weekday ? true.obs : false.obs,
+        expanded: dayDate.weekday == currentDate.value.weekday - 1 ? true.obs : false.obs,
         tasks: RxList<TaskModel>(dayTasks),
       );
     });

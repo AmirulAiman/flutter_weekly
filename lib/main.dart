@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:weekly/app/routes/app_routes.dart';
+import 'package:weekly/core/themes/app_themes.dart';
 import 'package:weekly/features/auth/controllers/auth_controller.dart';
 
 void main() async {
@@ -15,7 +16,19 @@ void main() async {
     GetMaterialApp(
       title: 'Weekly',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.deepPurple)),
+      theme: ThemeData(
+        colorScheme: ColorScheme(
+          brightness: Brightness.light,
+          primary: AppThemes.primary,
+          onPrimary: AppThemes.onPrimary,
+          secondary: AppThemes.secondary,
+          onSecondary: AppThemes.onSecondary,
+          surface: AppThemes.surface,
+          onSurface: AppThemes.onSurface,
+          error: AppThemes.alert,
+          onError: AppThemes.onAlert,
+        ),
+      ),
       initialRoute: user != null ? AppRoutes.home : AppRoutes.login,
       getPages: AppPages.pages,
     ),

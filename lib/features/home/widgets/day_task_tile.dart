@@ -29,8 +29,8 @@ class DayTaskTile extends StatelessWidget {
             child: Container(
               width: double.infinity,
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
-              decoration: const BoxDecoration(
-                border: Border(bottom: BorderSide(color: Color(0xFF2E2E2E))),
+              decoration: BoxDecoration(
+                border: Border(bottom: BorderSide(color: Theme.of(context).colorScheme.onSurface)),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -60,7 +60,7 @@ class DayTaskTile extends StatelessWidget {
                     Text(
                       AppUtilities.formattedDate(model.date),
                       style: TextStyle(
-                        color: Theme.of(context).colorScheme.secondary,
+                        color: Theme.of(context).colorScheme.onSurface,
                         fontSize: 13,
                       ),
                     ),

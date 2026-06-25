@@ -1,14 +1,12 @@
-import 'dart:ui';
+import 'package:flutter/material.dart';
 
 class AppThemes {
-  static final primary = Color(0xffFFFFFF);
-  static final onPrimary = Color(0xffFFFFFF);
-  static final secondary = Color(0xffFFFFFF);
-  static final onSecondary = Color(0xffFFFFFF);
-  static final surface = Color(0xffFFFFFF);
-  static final onSurface = Color(0xffFFFFFF);
-  static final alert = Color(0xffFFFFFF);
-  static final onAlert = Color(0xffFFFFFF);
-  static final info = Color(0xffFFFFFF);
-  static final onInfo = Color(0xffFFFFFF);
+  static final primary = Color(0xff212842);
+  static final onPrimary = Color(0xffF0E7D5);
+  static final secondary = Color(0xffF0E7D5);
+  static final onSecondary = Color(0xff212842);
+  static final surface = Color(0xffF0E7D5);
+  static final onSurface = Color(0xff212842);
+  static final alert = Colors.red;
+  static final onAlert = Color(0xffF0E7D5);
 }
