@@ -111,13 +111,15 @@ class HomeController extends GetxController {
       final index = dayModel.tasks.indexWhere((t) => t.id == task.id);
       if (index != -1) dayModel.tasks[index] = updated;
     } catch (e) {
-      print('updateTask: Failed');
+      print('updateTask: Failed, $e');
     }
   }
 
-  Future<void> deleteTask(String id) async {
+  Future<void> deleteTask(DayTaskModel dayTaskModel, TaskModel task) async {
     try {
-      await _repo.deleteTask(id);
+      print('Task:$task');
+      await _repo.deleteTask(task.id!);
+      dayTaskModel.tasks.remove(task);
     } catch (e) {
       print('deleteTask Failed; $e');
     }
